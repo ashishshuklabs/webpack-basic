@@ -10,30 +10,19 @@ module.exports = {
     },
     output: {
         // [name] will resolve to each entry field, name is a predefined field in webpack
-        // For an SPA the filename can be specified directly
-        filename: '[name].bundle.js',
+        // For an SPA the filename can be specified directly. Additionally, contentHash (or just hash)
+        // value has been added to the file name that would only change if there is a change in the file
+        // content. This enables the browser to cache the file and prevent it from being downloaded again,
+        // unless the hash has changed. This is good for optimization.
+        filename: '[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true, // clean the output folder on
         // assetModuleFilename:'assets/[hash][ext]' // option to output the images/assets in a 
         // specific folder especially for applications having many images
     },
-    devServer: {
-        static: './dist'
-    },
     module: {
         // defining css and image loaders
         rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    // can directly use string array, but using the object array approach
-                    // for clarity and understanding. Using latter approach, we can specify
-                    // additional options e.g. providing css-module support, add option 
-                    // modules: true for css-loader
-                    { loader: 'style-loader' },
-                    { loader: 'css-loader', options: {} }
-                ]
-            },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
                 type: 'asset/resource'
