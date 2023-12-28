@@ -1,11 +1,11 @@
 # Webpack basic project
 
 ### Basic webpack config concepts and notes
-
+The webpack config is an object and can be used to specify a number of values for the bundler. Some of the key fields that can be configured, are discussed below:
 - `entry`: Entry point (`.js` file only) for the bundler. Normally it's just a single entry defined as `string`. However, you can specify it as an array of objects for multiple entry points.
   - The object will have `key` as the field and `value` as the entry point e.g. `{index: './index.js'}`
 - `output`: Bundler output details. It's an object with the following fields that can be specified
-  - `filename`: It's a string. You can additionally specify/use webpack `name` variable here, if there are multiple entry points specific to each `key` specified. Examples:
+  - `filename`: It's a string. You can additionally specify/use webpack variables here (`name`, `contenthash` etc.). If multiple entry points, `name` variable will replace each `key` field specified in the `entry` object. Examples:
     - SPA / single entry point: `filename: 'index.bundle.js'`
     - MPA / Multiple entry points: `filename: [name].bundle.js`
   - `path`: Output destination folder. Generally resolved using `path` resolvers
@@ -20,10 +20,10 @@
       assetModuleFilename:'images/[hash][ext]'
   },
   ```
-- **Loaders**: By default webpack only understand how to handle `.js` or `.json` files i.e. javascript files. In order for it to handle or process any other file type, a loader needs to be specified.
+- **Loaders**: By default webpack only understands how to handle `.js` or `.json` files i.e. javascript files. In order for it to handle or process any other file type, a loader needs to be specified.
 
-  - Loader is specified as a `module` object containing `rules` array of object. The object in `rules` array has the following fields
-    - `test`: `RegEx` for the file extension
+  - Loaders are specified as `module` object containing `rules` array of objects. Each `rule` object has the following fields
+    - `test`: `RegEx` for the file extension to target
     - `use` : Either array or string corresponding to each loader required to process the file.Last entry defining the first processing step and so on. Or an object with fields `loader` specifying the loader and `options` parameter corresponding to the options supported by the loader
     - `type`: Generally used for built-in loaders for webpack. e.g. image files
   - Usage:
