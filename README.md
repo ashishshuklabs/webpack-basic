@@ -1,11 +1,11 @@
-# Webpack basic project
+# Basic webpack project
 
 ### Basic webpack config concepts and notes
-The webpack config is an object and can be used to specify a number of values for the bundler. Some of the key fields that can be configured, are discussed below:
-- `entry`: Entry point (`.js` file only) for the bundler. Normally it's just a single entry defined as `string`. However, you can specify it as an array of objects for multiple entry points.
+The webpack config file exports an object that can be used to specify a number of configurations for the bundler. It can be specified using the `webpack --config <config-file>` command to bundle an app. It's highly customizable. Some of the key fields that can be configured, are discussed below:
+- `entry`: Entry point for the bundler (`.js` file only). Normally it's just a single entry defined as `string`. However, you can specify it as an array of objects for multiple entry points.
   - The object will have `key` as the field and `value` as the entry point e.g. `{index: './index.js'}`
-- `output`: Bundler output details. It's an object with the following fields that can be specified
-  - `filename`: It's a string. You can additionally specify/use webpack variables here (`name`, `contenthash` etc.). If multiple entry points, `name` variable will replace each `key` field specified in the `entry` object. Examples:
+- `output`: Bundler output. It's an object with the following fields that can be specified
+  - `filename`: It's a string. You can additionally specify/use webpack variables here (`name`, `contenthash` etc.). If multiple entry points, `name` variable if specified, will iterate over each `key` field as defined in the `entry` object. Examples:
     - SPA / single entry point: `filename: 'index.bundle.js'`
     - MPA / Multiple entry points: `filename: [name].bundle.js`
   - `path`: Output destination folder. Generally resolved using `path` resolvers
@@ -64,7 +64,7 @@ The webpack config is an object and can be used to specify a number of values fo
         }),
    ]
   ```
-- `optimization`: Object with field `splitChunks` where `chunks` field could be specified to create explicit bundles. Especially, for extracting out the external libraries as a separate chunk, that could be shared across multiple bundles.
+- **optimization**: Inbuilt bundle optimizer configuration. It's an Object with field `splitChunks` where `chunks` field could be specified to create explicit bundles. Especially, for extracting out the external libraries as a separate chunk, that could be shared across multiple bundles.
     - Usage:
     ```
     optimization:{
@@ -75,8 +75,23 @@ The webpack config is an object and can be used to specify a number of values fo
         }
     }
     ```
-
-### Appendix - Plugins and Loaders
+- **Dev Server**: Development server provided by webpack. `devServer` object allows for setting different configurations for serving an application
+  - Usage:
+  ```
+  devServer: {
+        static: './dist'
+    },
+  ```
+- **Bundle Analyzer**: Built-in tool provided by webpack to analyze bundle sizes that can be used to further optimize bundle output. It's used as a plugin and just works without specifying any parameters.
+  - Usage:
+  ```
+  plugins: [new BundleAnalyzerPlugin()]
+  ```
+**Note**: For other plugin, loader and other configurations, refer relevant comments in the configuration files:
+- `webpack.common.js`
+- `webpack.config.development.js`
+- `webpack.config.production.js`
+### Appendix - Useful Plugins, Loaders and libraries
 - `mini-css-extract-plugin`: Used for extracting `css` in to separate files
 - `html-webpack-plugin`: Used for inserting main/entry/index file as `script` in to the `html` template
 - `css-loader`: Used for reading/loading `css` files

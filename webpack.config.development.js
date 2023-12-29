@@ -5,7 +5,8 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 module.exports = merge(commonConfig, {
     mode: 'development',
     devServer: {
-        static: './dist'
+        static: './dist',
+        port: 8080
     },
     module: {
         // defining css and image loaders

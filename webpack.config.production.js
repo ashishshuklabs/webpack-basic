@@ -17,7 +17,9 @@ module.exports = merge(commonConfig, {
             }
         ]
     },
-    // plugin to extract css in to separate bundle/chunk
+    // plugin to extract css in to separate bundle/chunk (without this css is bundled alongside html)
+    // This is a useful optimization technique to only serve relevant html/css that has changed. The browser 
+    // only fetches the updated files and serves the unchanged files from cache.
     plugins:[new MiniCssExtractPlugin({
         filename:'[name].[contenthash].css'
     })]

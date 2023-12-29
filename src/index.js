@@ -11,7 +11,6 @@ const anObject = {
 // console.log(import.meta.url)
 console.log(anObject)
 const newDate = addDays(Date.now(), 3)
-console.log('current date is', newDate, Date.now());
 const newObject = { ...anObject, date: JSON.stringify(newDate) }
 const heading = document.getElementById('heading')
 heading.classList.add(['heading'])
@@ -20,9 +19,9 @@ image.src = rabbit
 
 // for the kicks of it, add a script tag to end of body
 const newScript = document.createElement('script')
-newScript.innerHTML = JSON.stringify(newObject)
-
-document.body.appendChild(newScript)
+newScript.innerHTML = `${JSON.stringify(newObject)}`
+newScript.src=''
 const para = document.createElement('p')
 para.innerHTML = `Last updated: ${newObject.date}`
 document.body.appendChild(para)
+document.body.appendChild(newScript)
